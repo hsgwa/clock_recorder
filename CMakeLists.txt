@@ -18,9 +18,12 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(LTTngUST REQUIRED)
 
-add_executable(recorder src/recorder.cpp)
-ament_target_dependencies(recorder rclcpp)
+include_directories(include)
+add_executable(recorder src/recorder.cpp src/tp.c)
+
+ament_target_dependencies(recorder rclcpp LTTngUST)
 target_include_directories(recorder PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)

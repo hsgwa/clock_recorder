@@ -4,6 +4,9 @@
 
 #include <rclcpp/rclcpp.hpp>
 
+#define TRACEPOINT_DEFINE
+#include "clock_recorder/tp.h"
+
 using namespace std::chrono_literals;
 
 class ClockRecorder : public rclcpp::Node {
@@ -14,6 +17,7 @@ class ClockRecorder : public rclcpp::Node {
     auto timer_callback = [&]() {
                           auto now = this->now();
                           std::cout << static_cast<int>(now.seconds()) << std::endl;
+                          tracepoint(TRACEPOINT_PROVIDER, ros_time, now.nanoseconds());
     };
     timer_ = create_wall_timer(1s, timer_callback);
  };
