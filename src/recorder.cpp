@@ -16,7 +16,7 @@ class ClockRecorder : public rclcpp::Node {
     set_parameter(use_sim_time);
     auto timer_callback = [&]() {
                           auto now = this->now();
-                          std::cout << static_cast<int>(now.seconds()) << std::endl;
+                          // std::cout << static_cast<int>(now.seconds()) << std::endl;
                           tracepoint(TRACEPOINT_PROVIDER, ros_time, now.nanoseconds());
     };
     timer_ = create_wall_timer(1s, timer_callback);
